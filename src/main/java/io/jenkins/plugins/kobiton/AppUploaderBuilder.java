@@ -18,11 +18,11 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class AppUploaderBuilder extends Builder implements SimpleBuildStep {
     private final String uploadPath;
     private final Integer appId;
     private final Boolean isUpdateVersion;
+    AppUploaderService appService = new AppUploaderService();
 
     @DataBoundConstructor
     public AppUploaderBuilder(String uploadPath, Boolean isUpdateVersion, Integer appId) {
@@ -54,8 +54,8 @@ public class AppUploaderBuilder extends Builder implements SimpleBuildStep {
         return appService.generatePreSignedUploadURL(credential, fileName, appId);
     }
 
-    private void uploadFileToS3 (AppUploaderService appService, String preSignedURL) throws IOException {
-        appService.uploadFileToS3(preSignedURL, uploadPath);
+    private Boolean uploadFileToS3 (AppUploaderService appService, String preSignedURL) throws IOException {
+        return appService.uploadFileToS3(preSignedURL, uploadPath);
     }
 
     private Application createNewApplication(AppUploaderService appService,
@@ -70,6 +70,7 @@ public class AppUploaderBuilder extends Builder implements SimpleBuildStep {
         envVariables.put(EnvironmentVar.KOBITON_USERNAME, credential.getUsername());
         envVariables.put(EnvironmentVar.KOBITON_API_KEY, credential.getApiKey());
         envVariables.put(EnvironmentVar.KOBITON_APP_ID, appId);
+
         VariableInjectorAction variableInjectorAction = new VariableInjectorAction(envVariables);
         run.addAction(variableInjectorAction);
     }
@@ -80,13 +81,14 @@ public class AppUploaderBuilder extends Builder implements SimpleBuildStep {
                         @NonNull EnvVars env,
                         @NonNull Launcher launcher,
                         TaskListener listener) throws InterruptedException, IOException {
-        Credential credential = new Credential(env.get(EnvironmentVar.USERNAME), env.get(EnvironmentVar.API_KEY));
-        AppUploaderService appService = new AppUploaderService();
-        String fileName = uploadPath.substring(uploadPath.lastIndexOf("/") + 1);
         PrintStream logger = listener.getLogger();
+
+        Credential credential = new Credential(env.get(EnvironmentVar.USERNAME), env.get(EnvironmentVar.API_KEY));
+        String fileName = uploadPath.substring(uploadPath.lastIndexOf("/") + 1);
 
         try {
             PreSignedURL preSignedURL = preSignS3URL(appService, fileName, appId, credential);
+            PluginLogger.debug("Pre-sign an URL successfully.", AppUploaderBuilder.class.getName());
 
             uploadFileToS3(appService, preSignedURL.url());
             PluginLogger.debug("Upload file to S3 successfully.", AppUploaderBuilder.class.getName());

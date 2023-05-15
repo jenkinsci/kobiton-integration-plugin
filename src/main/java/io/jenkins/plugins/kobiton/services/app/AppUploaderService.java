@@ -3,14 +3,15 @@ package io.jenkins.plugins.kobiton.services.app;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.jenkins.plugins.kobiton.ApiEndpoint;
+import io.jenkins.plugins.kobiton.services.HttpService;
 import io.jenkins.plugins.kobiton.shared.models.*;
-import io.jenkins.plugins.kobiton.shared.utils.HttpUtils;
 import io.jenkins.plugins.kobiton.shared.utils.MappingUtils;
 
 import java.io.IOException;
 
 public class AppUploaderService implements AppService {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private final HttpService httpService = new HttpService.Builder().build();
 
     /**
      * Get URL for API call
@@ -34,12 +35,13 @@ public class AppUploaderService implements AppService {
     public PreSignedURL generatePreSignedUploadURL(Credential credential, String fileName, Integer appId) throws IOException {
         ObjectNode requestBodyObject = OBJECT_MAPPER.createObjectNode();
         requestBodyObject.put(ApiVariable.FILE_NAME, fileName);
+
         if (appId != null) {
             requestBodyObject.put(ApiVariable.APP_ID, appId);
         }
-        String requestBody = OBJECT_MAPPER.writeValueAsString(requestBodyObject);
 
-        String response = HttpUtils.post(getUrl(APP_UPLOAD_URL), credential, requestBody);
+        String requestBody = OBJECT_MAPPER.writeValueAsString(requestBodyObject);
+        String response = httpService.post(getUrl(APP_UPLOAD_URL), credential, requestBody);
 
         return MappingUtils.mapResponseToObject(response, PreSignedURL.class, OBJECT_MAPPER);
     }
@@ -49,10 +51,12 @@ public class AppUploaderService implements AppService {
      *
      * @param preSignedUrl pre-signed URL for uploading file to S3
      * @param uploadPath path to file
+     * @return true if no error was thrown
      * @throws IOException IOException
      */
-    public void uploadFileToS3(String preSignedUrl, String uploadPath) throws IOException {
-        HttpUtils.put(preSignedUrl, uploadPath);
+    public Boolean uploadFileToS3(String preSignedUrl, String uploadPath) throws IOException {
+        httpService.put(preSignedUrl, uploadPath);
+        return true;
     }
 
     /**
@@ -70,7 +74,7 @@ public class AppUploaderService implements AppService {
         requestBodyObject.put(ApiVariable.APP_PATH, appPath);
         String requestBody = OBJECT_MAPPER.writeValueAsString(requestBodyObject);
 
-        String response = HttpUtils.post(getUrl(APP_BASE_URL), credential, requestBody);
+        String response = httpService.post(getUrl(APP_BASE_URL), credential, requestBody);
 
         return MappingUtils.mapResponseToObject(response, Application.class, OBJECT_MAPPER);
     }

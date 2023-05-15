@@ -7,7 +7,6 @@ import io.jenkins.plugins.kobiton.shared.constants.Constants;
 
 import java.util.Objects;
 
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Application {
     private Integer appId;
@@ -37,16 +36,13 @@ public class Application {
 
     @Override
     public int hashCode() {
-        int result = 31;
-        result = 31 * result + appId;
-        result = 31 * result + versionId;
-        return result;
+        return Objects.hash(appId, versionId);
     }
 
     @Override
     public String toString() {
         if (appId == null) {
-            return "{ versionId='" + versionId + '\'' + " }";
+            return "{versionId='" + versionId + '\'' + "}";
         }
 
         return "{" +

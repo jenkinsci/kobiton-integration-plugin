@@ -11,13 +11,7 @@ import io.jenkins.plugins.kobiton.shared.utils.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.QueryParameter;
 
-import javax.servlet.ServletException;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 
 @Symbol("appUploaderBuilder")
 @Extension
@@ -27,24 +21,19 @@ public class AppUploaderBuilderDescriptor extends BuildStepDescriptor<Builder> {
         load();
     }
 
-    public FormValidation doCheckUploadPath(@QueryParameter String uploadPath) throws IOException, ServletException {
+    public FormValidation doCheckUploadPath(@QueryParameter String uploadPath) {
         if (StringUtils.isNullOrEmpty(uploadPath)) {
             return FormValidation.error(Messages.UploadApp_error_missingUploadPath());
         }
 
-        File file = new File(   uploadPath);
+        File file = new File(uploadPath);
         if (!file.exists()) {
                 return FormValidation.error(Messages.UploadApp_error_fileNotFound());
         }
 
         String fileExtension = file.getName().substring(file.getName().lastIndexOf(".") + 1);
-        Path filePath = Paths.get(file.getAbsolutePath());
-        String fileMimeType = Files.probeContentType(filePath);
-        if (
-                !Constants.SupportedFile.getExtensions().contains(fileExtension.toLowerCase()) &&
-                !Constants.SupportedFile.getMimeTypes().contains(fileMimeType)
-        ) {
-            return FormValidation.error(Messages.UploadApp_error_fileUnsupportedMimeType() + ": " + fileMimeType);
+        if (!Constants.SupportedFile.getExtensions().contains(fileExtension.toLowerCase())) {
+            return FormValidation.error(Messages.UploadApp_error_fileUnsupportedFileExtension() + ": " + fileExtension);
         }
 
         return FormValidation.ok();
@@ -60,5 +49,4 @@ public class AppUploaderBuilderDescriptor extends BuildStepDescriptor<Builder> {
     public String getDisplayName() {
         return Messages.UploadApp_DisplayName();
     }
-
 }

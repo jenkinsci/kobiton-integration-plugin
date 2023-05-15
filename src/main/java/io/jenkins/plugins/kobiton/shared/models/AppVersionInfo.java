@@ -31,10 +31,7 @@ public class AppVersionInfo {
 
     @Override
     public int hashCode() {
-        int result = 31;
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + appId;
-        return result;
+        return Objects.hash(appId, state);
     }
 
     @Override

@@ -1,17 +1,18 @@
 package io.jenkins.plugins.kobiton.shared.logger;
 
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class PluginLogger {
-    private static final Logger logger = Logger.getLogger(PluginLogger.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(PluginLogger.class);
     private PluginLogger() {
         throw new IllegalStateException("Utils class");
     }
 
     public static void debug(String message, String location) {
-        logger.log(Level.SEVERE, "[{0}] {1} ", new Object[]{location, message});
+        LOGGER.info("[{}] {}", location, message);
     }
 
     public static void log(String message, PrintStream printStream) {

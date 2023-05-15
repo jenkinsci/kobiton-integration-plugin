@@ -25,6 +25,6 @@ public class Credential {
     }
 
     public String getCredentials() {
-        return username + ":" + apiKey;
+        return username + ":" + getApiKey();
     }
 }

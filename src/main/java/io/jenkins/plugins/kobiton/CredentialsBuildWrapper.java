@@ -10,7 +10,6 @@ import io.jenkins.plugins.kobiton.shared.models.EnvironmentVar;
 import jenkins.tasks.SimpleBuildWrapper;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-
 public class CredentialsBuildWrapper extends SimpleBuildWrapper {
     private final Credential credential;
     private final String standaloneUrl;

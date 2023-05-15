@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VariableInjectorAction implements EnvironmentContributingAction {
-
     private Map<String, String> envVars = new HashMap<>();
 
     public VariableInjectorAction(Map<String, String> envVars) {

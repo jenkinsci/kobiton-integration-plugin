@@ -2,20 +2,29 @@
 
 ## Introduction
 
-Kobiton Jenkins Integration is a plugin for Jenkins that provides additional functionality for user to interact with Kobiton platform and services. 
+This plugin provides additional functionality for user to interact with Kobiton platform and services:
 
-### Features
+- 🌴 Upload application to Kobiton Apps Repository.
 
-🌴 Upload application to Kobiton Apps Repository.
+- 🌴 Update version for application in Kobiton Apps Repository.
 
-🌴 Update version for application in Kobiton Apps Repository.
+## Development
 
-## Requirements
+### Requirements
 
 // TODO: update this section
 
 - Jenkins: The plugin requires Jenkins version X.X or later.
 - Other dependencies: List any additional dependencies or requirements.
+
+### Maven Commands
+
+- `mvn clean`: clean up the project by deleting the `target/` folder
+- `mvn hpi:run`: run Jenkins with the plugin installed on port 8080 (to customize port, run `mvn hpi:run -Djetty.port=8081`)
+- `mvn package`: build the plugin
+- `mvn compile`: compiles the source Java classes of the project
+- `mvn verify`: run all tests
+- `mvn clean -P enable-jacoco test jacoco:report`: run all tests and generate test coverage report (at `/target/site/jacoco/index.html`)
 
 ## Installation
 
@@ -79,7 +88,7 @@ Restart Jenkins to activate the plugin.
 
 ### Install other necessary plugins
 
-> 📝 **Note:** In this example, we will execute a Node.js script. So we will need other plugins to support this. Depending on your use case, you may need to install other plugins and configurations accordingly.
+> 📝 **Note:** In this example, we will execute a Node.js script hosted on GitHub. So we will need plugins to support this. Depending on your use case, you may need to install other plugins and configure accordingly.
 
 Access Jenkins → Click on **Manage Jenkins** → **Manage Plugins** → **Available Plugins**.
 
@@ -134,7 +143,7 @@ The Kobiton plugin will set these environment variables:
 - `KOBITON_USERNAME`: Your Kobiton username.
 - `KOBITON_API_KEY`: Your Kobiton API key.
 
-You will need to use these environment variables to set the desired capabilities in your script, for example:
+You will need to use these environment variables to set the desired capabilities in your script. Bellow is an example:
 
 ```javascript
 const username = process.env.KOBITON_USERNAME
@@ -173,7 +182,7 @@ Then paste the script below into field *(a sample Node.js test script in GitHub 
 ```bash
 if [ -d "test-sample" ]; then
     rm -rf "test-sample"
-    echo "test-sample already exists. Removed to clone new one."
+    echo "test-sample already exists. The folder was removed in order to clone a new one."
 fi
 git clone https://github.com/huytunguyenn/test-sample.git
 cd test-sample
@@ -257,6 +266,13 @@ Also make sure your `npm` version is correct:
 8.5.1
 ```
 
+#### (Development) Fail running unit tests
+
+Try follow these steps: `mvn clean`  →  `mvn compile`  →  `mvn test`. Make sure you have `/target/tmp` and `/target/test-classes` folder.
+
+#### (Development) "this.jenkins" is null error in unit tests
+
+Try to use `import org.junit.Test;` instead of `import org.junit.jupiter.api.Test;`
 
 ## LICENSE
 

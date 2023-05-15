@@ -2,14 +2,15 @@ package io.jenkins.plugins.kobiton.services.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jenkins.plugins.kobiton.ApiEndpoint;
+import io.jenkins.plugins.kobiton.services.HttpService;
 import io.jenkins.plugins.kobiton.shared.models.Credential;
 import io.jenkins.plugins.kobiton.shared.models.User;
-import io.jenkins.plugins.kobiton.shared.utils.HttpUtils;
 
 import java.io.IOException;
 
-public class DefautUserService implements UserService {
+public class DefaultUserService implements UserService {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private final HttpService httpService = new HttpService.Builder().build();
 
     /**
      * Get URL for API call
@@ -34,7 +35,7 @@ public class DefautUserService implements UserService {
      * @throws IOException IOException
      */
     public User getUser(Credential credential) throws IOException {
-        String response = HttpUtils.get(getUrl(CURRENT_USER_URL), credential);
+        String response = httpService.get(getUrl(CURRENT_USER_URL), credential);
         return toUser(response);
     }
 
@@ -45,8 +46,8 @@ public class DefautUserService implements UserService {
      * @return boolean true if user exists
      * @throws IOException IOException
      */
-    public boolean checkUserExists(Credential credential) throws IOException {
+    public boolean isUserDisabled(Credential credential) throws IOException {
         User user = getUser(credential);
-        return !user.disabled();
+        return user.disabled();
     }
 }

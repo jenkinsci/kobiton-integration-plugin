@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public final class Constants {
     private Constants() {
         throw new IllegalStateException("Constants class");
     }
-
     public static final String DEFAULT_BASE_API_URL = "https://api.kobiton.com/v1";
     public static final String APP_ID_MAPPING = "kobiton-store:";
     public static final String APP_VERSION_ID_MAPPING = "kobiton-store:v";
@@ -28,6 +26,4 @@ public final class Constants {
             return new ArrayList<>(mimeTypes);
         }
     }
-
-
 }
