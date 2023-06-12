@@ -59,8 +59,8 @@ public class Application {
      */
     public String getAppOrVersionId() {
         if (appId != null) {
-            return MessageFormat.format(Constants.APP_ID_MAPPING, appId);
+            return MessageFormat.format(Constants.APP_ID_MAPPING, appId.toString());
         }
-        return MessageFormat.format(Constants.APP_VERSION_ID_MAPPING, versionId);
+        return MessageFormat.format(Constants.APP_VERSION_ID_MAPPING, versionId.toString());
     }
 }

@@ -1,12 +1,8 @@
-# Jenkins Integration
-
-## Introduction
+# Kobiton Plugin
 
 This plugin provides additional functionality for user to interact with Kobiton platform and services:
-
-- 🌴 Upload application to Kobiton Apps Repository.
-
-- 🌴 Update version for application in Kobiton Apps Repository.
+- Upload application to Kobiton Apps Repository.
+- Update version for application in Kobiton Apps Repository.
 
 ## Installation
 
@@ -18,7 +14,9 @@ After setting up Jenkins, you can access it on your local: http://localhost:8080
 
 ### Get Kobiton Plugin
 
-> ℹ️ **Info**: You can choose one of the following options
+> ℹ️ **Info**: You can choose one of the following options: 
+> - Download the plugin directly.
+> - Build the plugin from the source code.
 
 #### Direct download
 
@@ -246,26 +244,27 @@ Build step 'Execute NodeJS script' marked build as failure
 Also make sure your `npm` version is correct:
 
 ```bash
-+ npm -v
+$ npm -v
 8.5.1
 ```
 
-#### (Development) Fail running unit tests
-
-Try follow these steps: `mvn clean`  →  `mvn compile`  →  `mvn test`. Make sure you have `/target/tmp` and `/target/test-classes` folder.
-
-#### (Development) "this.jenkins" is null error in unit tests
-
-Try to use `import org.junit.Test;` instead of `import org.junit.jupiter.api.Test;`
-
 ## Development
 
-### Maven Commands
+### Useful commands
 
 - `mvn clean`: clean up the project by deleting the `target/` folder
 - `mvn hpi:run`: run Jenkins with the plugin installed on port 8080 (to customize port, run `mvn hpi:run -Djetty.port=8081`)
-- `mvn package`: build the plugin
+- `mvn package`: build the plugin to `.hpi` file at `target/` folder
 - `mvn compile`: compiles the source Java classes of the project
 - `mvn verify`: run all tests
 - `mvn clean -P enable-jacoco test jacoco:report`: run all tests and generate test coverage report (at `/target/site/jacoco/index.html`)
 
+### Troubleshooting
+
+#### Fail running unit tests
+
+Try follow these steps: `mvn clean`  →  `mvn compile`  →  `mvn test`. Make sure you have `/target/tmp` and `/target/test-classes` folder.
+
+#### "this.jenkins" is null error in unit tests
+
+Try to use `import org.junit.Test;` instead of `import org.junit.jupiter.api.Test;`.

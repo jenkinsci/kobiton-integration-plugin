@@ -56,7 +56,7 @@ public class AppUploaderService implements AppService {
      */
     public Boolean uploadFileToS3(String preSignedUrl, String uploadPath) throws IOException {
         httpService.put(preSignedUrl, uploadPath);
-        return true;
+        return Boolean.TRUE;
     }
 
     /**

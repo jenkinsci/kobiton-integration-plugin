@@ -78,4 +78,17 @@ public class AppUploaderBuilderTest {
         FreeStyleBuild build = jenkins.buildAndAssertStatus(Result.FAILURE, project);
         jenkins.assertLogContains("[ERROR]", build);
     }
+
+    @Test
+    public void perform_NullAppUploaderGiven_ShouldInitService() throws Exception {
+        AppUploaderBuilder builder = new AppUploaderBuilder(uploadPath, isUpdateVersion, appId);
+        Field appServiceField = AppUploaderBuilder.class.getDeclaredField("appService");
+        appServiceField.setAccessible(true);
+        appServiceField.set(builder, null);
+
+        FreeStyleProject project = jenkins.createFreeStyleProject();
+        project.getBuildersList().add(builder);
+
+        jenkins.buildAndAssertStatus(Result.FAILURE, project);
+    }
 }

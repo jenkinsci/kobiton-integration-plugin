@@ -22,7 +22,7 @@ public class AppUploaderBuilder extends Builder implements SimpleBuildStep {
     private final String uploadPath;
     private final Integer appId;
     private final Boolean isUpdateVersion;
-    AppUploaderService appService = new AppUploaderService();
+    AppUploaderService appService;
 
     @DataBoundConstructor
     public AppUploaderBuilder(String uploadPath, Boolean isUpdateVersion, Integer appId) {
@@ -82,11 +82,14 @@ public class AppUploaderBuilder extends Builder implements SimpleBuildStep {
                         @NonNull Launcher launcher,
                         TaskListener listener) throws InterruptedException, IOException {
         PrintStream logger = listener.getLogger();
-
         Credential credential = new Credential(env.get(EnvironmentVar.USERNAME), env.get(EnvironmentVar.API_KEY));
         String fileName = uploadPath.substring(uploadPath.lastIndexOf("/") + 1);
 
         try {
+            if (appService == null) {
+                appService = new AppUploaderService();
+            }
+
             PreSignedURL preSignedURL = preSignS3URL(appService, fileName, appId, credential);
             PluginLogger.debug("Pre-sign an URL successfully.", AppUploaderBuilder.class.getName());
 
