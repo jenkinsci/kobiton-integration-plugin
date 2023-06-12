@@ -28,7 +28,7 @@ public class AppUploaderBuilderDescriptor extends BuildStepDescriptor<Builder> {
 
         File file = new File(uploadPath);
         if (!file.exists()) {
-                return FormValidation.error(Messages.UploadApp_error_fileNotFound());
+            return FormValidation.error(Messages.UploadApp_error_fileNotFound());
         }
 
         String fileExtension = file.getName().substring(file.getName().lastIndexOf(".") + 1);

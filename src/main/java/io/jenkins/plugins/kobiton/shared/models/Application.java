@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jenkins.plugins.kobiton.shared.constants.Constants;
 
 import java.util.Objects;
+import java.text.MessageFormat;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Application {
@@ -58,8 +59,8 @@ public class Application {
      */
     public String getAppOrVersionId() {
         if (appId != null) {
-            return Constants.APP_ID_MAPPING + appId;
+            return MessageFormat.format(Constants.APP_ID_MAPPING, appId);
         }
-        return Constants.APP_VERSION_ID_MAPPING + versionId;
+        return MessageFormat.format(Constants.APP_VERSION_ID_MAPPING, versionId);
     }
 }

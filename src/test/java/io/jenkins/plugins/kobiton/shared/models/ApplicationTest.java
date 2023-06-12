@@ -65,7 +65,7 @@ class ApplicationTest {
         Application appWithVersionId = new Application(null, versionId);
 
         assertEquals(expectedAppOrVersionId, appWithAppId.getAppOrVersionId());
-        assertEquals(Constants.APP_VERSION_ID_MAPPING + versionId, appWithVersionId.getAppOrVersionId());
+        assertEquals("kobiton-store:v48", appWithVersionId.getAppOrVersionId());
     }
 
 }
