@@ -8,7 +8,7 @@ This plugin provides additional functionality for user to interact with Kobiton 
 
 ### Set up Jenkins
 
-Follow this [tutorial](https://phoenixnap.com/kb/install-jenkins-on-mac]) to install Jenkins on your local machine. You can use other methods to install Jenkins, like Docker, for instance.
+Follow this [tutorial](https://phoenixnap.com/kb/install-jenkins-on-mac) to install Jenkins on your local machine. You can use other methods to install Jenkins, like Docker, for instance.
 
 After setting up Jenkins, you can access it on your local: http://localhost:8080/.
 
