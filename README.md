@@ -4,6 +4,16 @@ This plugin provides additional functionality for user to interact with Kobiton 
 - Upload application to Kobiton Apps Repository.
 - Update version for application in Kobiton Apps Repository.
 
+## Dependencies
+
+- Jenkins: The plugin requires Jenkins version 2.361.4 or later. 
+- Other plugins:
+  - [Structs](https://plugins.jenkins.io/structs/) >= 1.20
+  - [Pipeline: Groovy](https://plugins.jenkins.io/workflow-cps/) >= 2.90
+  - [Pipeline: Job](https://plugins.jenkins.io/workflow-job/) >= 2.40
+  - [Pipeline: Basic Steps](https://plugins.jenkins.io/workflow-basic-steps/) >= 2.23
+  - [Pipeline: Nodes and Processes](https://plugins.jenkins.io/workflow-durable-task-step/) >= 2.37
+
 ## Installation
 
 ### Set up Jenkins
@@ -82,7 +92,7 @@ If you have installed NodeJS plugin successfully, you will see **NodeJS** sectio
 
 ![add-nodejs-runtime.png](assets%2Fadd-nodejs-runtime.png)
 
-## Usage
+## How to Use
 
 ### Create and configure a Jenkins job
 
@@ -204,67 +214,23 @@ SessionID used for the next step 5505018
 Finished: SUCCESS
 ```
 
-The session ID is `5505018` in this sample output. You can use the number to view your test report in Kobiton page: https://portal.kobiton.com/sessions/{sessionId}
+The session ID is `5505018` in this sample output. 
 
-## LICENSE
+You can use the number to view your test report in Kobiton page: https://portal.kobiton.com/sessions/{sessionId}
 
-Licensed under MIT, see [LICENSE](LICENSE.md)
+## License
+
+Licensed under MIT, see [LICENSE](LICENSE.md).
 
 ## Troubleshooting
 
 If you encounter any issues or have questions, please:
 
-- Check the [Troubleshooting](docs/TROUBLESHOOTING.md) guide.
-- Search the [GitHub Issues](https://github.com/your-plugin/repository/issues) to see if the issue has already been reported.
+- Check the [Troubleshooting](TROUBLESHOOTING.md) guide.
+- Search the *GitHub Issues* to see if the issue has already been reported.
 - Open a new issue if your problem is not yet addressed at [Jenkins issue tracker](https://issues.jenkins-ci.org/).
 
-### Issues
 
-#### Timeout when running job
+## Contributing to the Plugin
 
-If you encounter this output in the console log when running the job. Please make sure you connect to KMS VPN.
-
-```bash
-Ending your web drivage..
-
-quit driver: Error [ERR_SOCKET_CONNECTION_TIMEOUT]: [quit()] Socket connection timeout
-```
-
-#### Node.js version
-
-If you encounter this output in the console log, make sure you have installed a stable Node.js version (this example is using version 19.7.0).
-
-```bash 
-FATAL: command execution failed
-java.io.IOException: Failed to install https://nodejs.org/dist/v14.0.0/node-v14.0.0-darwin-arm64.tar.gz
-
-Build step 'Execute NodeJS script' marked build as failure
-```
-
-Also make sure your `npm` version is correct:
-
-```bash
-$ npm -v
-8.5.1
-```
-
-## Development
-
-### Useful commands
-
-- `mvn clean`: clean up the project by deleting the `target/` folder
-- `mvn hpi:run`: run Jenkins with the plugin installed on port 8080 (to customize port, run `mvn hpi:run -Djetty.port=8081`)
-- `mvn package`: build the plugin to `.hpi` file at `target/` folder
-- `mvn compile`: compiles the source Java classes of the project
-- `mvn verify`: run all tests
-- `mvn clean -P enable-jacoco test jacoco:report`: run all tests and generate test coverage report (at `/target/site/jacoco/index.html`)
-
-### Troubleshooting
-
-#### Fail running unit tests
-
-Try follow these steps: `mvn clean`  →  `mvn compile`  →  `mvn test`. Make sure you have `/target/tmp` and `/target/test-classes` folder.
-
-#### "this.jenkins" is null error in unit tests
-
-Try to use `import org.junit.Test;` instead of `import org.junit.jupiter.api.Test;`.
+Refer to [contributing to the plugin](CONTRIBUTING.md) for contribution guidelines.
