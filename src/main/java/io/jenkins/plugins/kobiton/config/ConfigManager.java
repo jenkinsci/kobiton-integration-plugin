@@ -5,7 +5,6 @@ import io.jenkins.plugins.kobiton.shared.utils.StringUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,11 +19,10 @@ public class ConfigManager {
         return properties.getProperty(key, defaultValue);
     }
 
-    public List<String> getArrayProperty(String key) {
+    public List<String> getArrayProperty(String key, String[] defaultValues) {
         String value = getProperty(key, "");
         if (StringUtils.isNullOrEmpty(value)) {
-            return Collections.emptyList();
-
+            return Arrays.asList(defaultValues);
         }
         return Arrays.asList(value.split(","));
     }

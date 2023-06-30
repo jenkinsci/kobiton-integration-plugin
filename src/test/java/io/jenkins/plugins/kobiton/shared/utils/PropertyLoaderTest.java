@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +37,7 @@ class PropertyLoaderTest {
         String key = "someKey";
         List<String> expectedProperties = List.of();
 
-        List<String> actualProperties = PropertyLoader.loadProperties(key);
+        List<String> actualProperties = PropertyLoader.loadProperties(key, new String[]{});
 
         assertEquals(expectedProperties, actualProperties);
     }

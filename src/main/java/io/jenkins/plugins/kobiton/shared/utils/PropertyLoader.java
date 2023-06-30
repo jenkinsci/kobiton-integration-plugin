@@ -12,8 +12,8 @@ public class PropertyLoader {
         return configManager.getProperty(key, defaultValue);
     }
 
-    public static List<String> loadProperties(String key) {
+    public static List<String> loadProperties(String key, String[] defaultValues) {
         ConfigManager configManager = new ConfigManager.Builder().build();
-        return configManager.getArrayProperty(key);
+        return configManager.getArrayProperty(key, defaultValues);
     }
 }

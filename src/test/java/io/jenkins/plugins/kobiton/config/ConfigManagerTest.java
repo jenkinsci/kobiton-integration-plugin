@@ -39,9 +39,9 @@ class ConfigManagerTest {
     }
 
     @Test
-    void getArrayProperty_KeyGiven__ShouldReturnValueCorrectly() {
-        List<String> myArray = configManager.getArrayProperty("myArray");
-        List<String> nonexistentArray = configManager.getArrayProperty("nonexistent");
+    void getArrayProperty_KeyGiven_ShouldReturnValueCorrectly() {
+        List<String> myArray = configManager.getArrayProperty("myArray", new String[]{});
+        List<String> nonexistentArray = configManager.getArrayProperty("nonexistent", new String[]{});
 
         assertEquals(3, myArray.size());
         assertEquals("value1", myArray.get(0));

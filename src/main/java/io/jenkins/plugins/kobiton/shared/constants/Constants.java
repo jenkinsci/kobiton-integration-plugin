@@ -3,7 +3,6 @@ package io.jenkins.plugins.kobiton.shared.constants;
 import io.jenkins.plugins.kobiton.shared.utils.PropertyLoader;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public final class Constants {
@@ -16,8 +15,8 @@ public final class Constants {
     public static final String APP_VERSION_ID_MAPPING = PropertyLoader.loadProperty("appVersionIdSignature", "kobiton-store:v{0}");
     public static final class SupportedFile {
         private SupportedFile() {}
-        private static final List<String> extensions = PropertyLoader.loadProperties("supportedFileExtensions");
-        private static final List<String> mimeTypes = PropertyLoader.loadProperties("supportedMimeTypes");
+        private static final List<String> extensions = PropertyLoader.loadProperties("supportedFileExtensions", new String[]{"apk", "ipa"});
+        private static final List<String> mimeTypes = PropertyLoader.loadProperties("supportedMimeTypes", new String[]{"application/vnd.android.package-archive", "application/octet-stream"});
 
         public static List<String> getExtensions() {
             return new ArrayList<>(extensions);
