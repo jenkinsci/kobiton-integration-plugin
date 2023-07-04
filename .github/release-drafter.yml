@@ -1,2 +1,2 @@
 _extends: .github
-tag-template: jenkins-integration-$NEXT_MINOR_VERSION
+tag-template: kobiton-integration-plugin-$NEXT_MINOR_VERSION
