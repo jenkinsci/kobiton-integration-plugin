@@ -20,7 +20,7 @@ This plugin provides additional functionality for user to interact with Kobiton 
 
 Follow this [tutorial](https://phoenixnap.com/kb/install-jenkins-on-mac) to install Jenkins on your local machine. You can use other methods to install Jenkins, like Docker, for instance.
 
-After setting up Jenkins, you can access it on your local: http://localhost:8080/.
+After setting up Jenkins, you can access it on your local: http://localhost:8080.
 
 ### Get Kobiton Plugin
 
@@ -30,7 +30,7 @@ After setting up Jenkins, you can access it on your local: http://localhost:8080
 
 #### Direct download
 
-Download the latest release from [Releases](https://github.com/jenkins-integration/repository/releases) page.
+Download the latest release from [Releases](https://github.com/jenkinsci/kobiton-integration-plugin/repository/releases) page.
 
 Or you can find the `jenkins-integration.hpi` file in `assets/` folder.
 
@@ -172,8 +172,8 @@ if [ -d "test-sample" ]; then
     rm -rf "test-sample"
     echo "test-sample already exists. The folder was removed in order to clone a new one."
 fi
-git clone https://github.com/huytunguyenn/test-sample.git
-cd test-sample
+git clone https://github.com/kobiton/samples.git
+cd samples/javascript-jenkins
 npm install
 npm run android-app-test
 ```
