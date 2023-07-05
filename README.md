@@ -3,6 +3,7 @@
 This plugin provides additional functionality for user to interact with Kobiton platform and services:
 - Upload application to Kobiton Apps Repository.
 - Update version for application in Kobiton Apps Repository.
+- Run appium tests with a specific app version on devices hosted by Kobiton
 
 ## Dependencies
 
