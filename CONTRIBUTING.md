@@ -1,6 +1,6 @@
 # Contributing to the Kobiton Plugin
 
-This is contribution guidelines.
+Follow the below guidelines to contribute to the project.
 
 ## Development
 
@@ -17,8 +17,8 @@ This is contribution guidelines.
 
 ### Fail running unit tests
 
-Try follow these steps: `mvn clean`  →  `mvn compile`  →  `mvn test`. Make sure you have `/target/tmp` and `/target/test-classes` folder.
+Follow these steps: `mvn clean`  →  `mvn compile`  →  `mvn test`. Make sure you have `/target/tmp` and `/target/test-classes` folder.
 
 ### "this.jenkins" is null error in unit tests
 
-Try to use `import org.junit.Test;` instead of `import org.junit.jupiter.api.Test;`.
+Use `import org.junit.Test;` instead of `import org.junit.jupiter.api.Test;`.
