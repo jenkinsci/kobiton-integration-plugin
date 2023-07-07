@@ -4,6 +4,22 @@ Follow the below guidelines to contribute to the project.
 
 ## Development
 
+### Build the plugin from the source code
+
+Make sure you have Maven and JDK installed, you can follow this [tutorial for MacOS](https://www.digitalocean.com/community/tutorials/install-maven-mac-os).
+
+```bash
+java -version  # check if Java is installed
+mvn −version  # check if Maven is installed
+```
+
+Clone this repository. Navigate to the root directory of the repository.
+
+```bash
+git clone git@github.com:kobiton/jenkins-integration.git
+cd jenkins-integration
+```
+
 ### Useful commands
 
 - `mvn clean`: clean up the project by deleting the `target/` folder
@@ -15,7 +31,7 @@ Follow the below guidelines to contribute to the project.
 
 ## Troubleshooting
 
-### Fail running unit tests
+### Unit tests fail to run
 
 Follow these steps: `mvn clean`  →  `mvn compile`  →  `mvn test`. Make sure you have `/target/tmp` and `/target/test-classes` folder.
 
