@@ -15,7 +15,7 @@ This plugin provides additional functionality for user to interact with Kobiton 
 
 The following are required to use the plugin:
 
-- An existing Jenkins CI server (version 2.361.4 or later).
+- An existing Jenkins CI server (version 2.387.3 or later).
 - A Kobiton account. You can [sign-up for free trial](https://info.kobiton.com/sign-up) if you do not have an existing account.
 - Other plugins:
   - [Structs](https://plugins.jenkins.io/structs/) >= 1.20
