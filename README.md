@@ -197,7 +197,7 @@ Finished: SUCCESS
 
 The session ID is `5505018` in this sample output. 
 
-You can use the above ID to view your test report in Kobiton Portal: https://portal.kobiton.com/sessions/{sessionId}. Replace {sessionID} with the actual ID you received.
+You can use the above ID to view your test report in Kobiton Portal: https://portal.kobiton.com/sessions/{sessionId}. Replace `{sessionID}` with the actual ID you received.
 
 ## License
 
