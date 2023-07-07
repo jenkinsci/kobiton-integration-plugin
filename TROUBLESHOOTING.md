@@ -1,6 +1,6 @@
 # Troubleshooting Guide for Kobiton Plugin
 
-This guide provides troubleshooting steps for common issues encountered while using the Kobiton plugin in Jenkins. If you are experiencing problems, please follow the steps below to diagnose and resolve the issue.
+This guide provides troubleshooting steps for common issues encountered while using the Kobiton plugin in Jenkins.
 
 ## Issues
 
@@ -25,7 +25,7 @@ Build step 'Execute NodeJS script' marked build as failure
 
 If you encounter this output in the console log, make sure you have installed a stable Node.js version (this example is using version 19.7.0).
 
-Also make sure your `npm` version is correct:
+It is important to also make sure your `npm` version is correct:
 
 ```bash
 $ npm -v
