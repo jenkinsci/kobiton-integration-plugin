@@ -14,6 +14,7 @@ import io.jenkins.plugins.kobiton.shared.utils.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.interceptor.RequirePOST;
 
 @Symbol("credentialsBuildWrapper")
 @Extension
@@ -44,16 +45,20 @@ public class CredentialsBuildWrapperDescriptor extends BuildWrapperDescriptor {
                 formData.getString("standaloneUrl"));
     }
 
+    @SuppressWarnings({"lgtm[jenkins/no-permission-check]", "lgtm[jenkins/csrf]"})
     public FormValidation doCheckUsername(@QueryParameter String username) {
         return StringUtils.isNullOrEmpty(username)
                 ? FormValidation.error(Messages.BuildEnvironment_error_missingUsername()) : FormValidation.ok();
     }
 
+    @SuppressWarnings({"lgtm[jenkins/no-permission-check]", "lgtm[jenkins/csrf]"})
     public FormValidation doCheckApiKey(@QueryParameter String apiKey) {
         return StringUtils.isNullOrEmpty(apiKey)
                 ? FormValidation.error(Messages.BuildEnvironment_error_missingApiKey()) : FormValidation.ok();
     }
 
+    @RequirePOST
+    @SuppressWarnings("lgtm[jenkins/no-permission-check]")
     public FormValidation doAuthenticateUser(@QueryParameter("username") final String username,
                                              @QueryParameter("apiKey") final String apiKey,
                                              @QueryParameter("standaloneUrl") final String standaloneUrl) {
