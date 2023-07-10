@@ -21,6 +21,7 @@ public class AppUploaderBuilderDescriptor extends BuildStepDescriptor<Builder> {
         load();
     }
 
+    @SuppressWarnings({"lgtm[jenkins/no-permission-check]", "lgtm[jenkins/csrf]"})
     public FormValidation doCheckUploadPath(@QueryParameter String uploadPath) {
         if (StringUtils.isNullOrEmpty(uploadPath)) {
             return FormValidation.error(Messages.UploadApp_error_missingUploadPath());
