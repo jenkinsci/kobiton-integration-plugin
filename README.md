@@ -2,13 +2,13 @@
 
 Kobiton is a mobile-first testing platform purpose-built for enterprises with the power to deliver faster release cycles and exceptional user experiences. As a mobile-centric testing platform, we pride ourselves on our top-tier customer service, platform capabilities, and product stability. Learn more about Kobiton [here](https://kobiton.com/).
 
-This Kobiton Jenkins plugin allows you to integrate and run your automation test cases from a Jenkins CI server on Kobiton device pool.
+This Kobiton Jenkins plugin allows you to integrate and run your automation test cases from a Jenkins CI server on Kobiton's device pool.
 
 ## Features
 
 This plugin provides additional functionality for user to interact with Kobiton platform and services:
-- Upload an application to Kobiton Apps Repository.
-- Upload a new version for an existing application in Kobiton Apps Repository.
+- Upload an application to the Kobiton Apps Repository.
+- Upload a new version for an existing application in the Kobiton Apps Repository.
 - Run appium tests with a specific app version on devices hosted by Kobiton
 
 ## Prerequisites
@@ -169,7 +169,7 @@ Navigate back to the job's main page. Click **Build Now** to run the job.
 
 ![build-now.png](assets%2Fbuild-now.png)
 
-When the job jinishes, click the build result > **Console Output**. The result should be similar to the below:
+When the job finishes, click the build result > **Console Output**. The result should be similar to the below:
 
 ```bash
 ...
