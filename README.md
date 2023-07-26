@@ -18,11 +18,7 @@ The following are required to use the plugin:
 - An existing Jenkins CI server (version 2.387.3 or later).
 - A Kobiton account. You can [sign-up for free trial](https://info.kobiton.com/sign-up) if you do not have an existing account.
 - Other plugins:
-  - [Structs](https://plugins.jenkins.io/structs/) >= 1.20
-  - [Pipeline: Groovy](https://plugins.jenkins.io/workflow-cps/) >= 2.90
-  - [Pipeline: Job](https://plugins.jenkins.io/workflow-job/) >= 2.40
-  - [Pipeline: Basic Steps](https://plugins.jenkins.io/workflow-basic-steps/) >= 2.23
-  - [Pipeline: Nodes and Processes](https://plugins.jenkins.io/workflow-durable-task-step/) >= 2.37
+  - [Jackson 2 API](https://plugins.jenkins.io/jackson2-api/).
 
 ## Installation and set up
 
