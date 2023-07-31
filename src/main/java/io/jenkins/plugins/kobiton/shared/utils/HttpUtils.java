@@ -16,7 +16,7 @@ public final class HttpUtils {
      *
      * @param url API url
      * @param credential credential
-     * @return HttpRequest Builder with Authorization header: Basic <credentials>
+     * @return HttpRequest Builder with Authorization header
      */
     public static HttpRequest.Builder createAuthHeader(String url, Credential credential) {
         return HttpRequest
