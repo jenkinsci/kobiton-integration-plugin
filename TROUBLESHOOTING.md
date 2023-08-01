@@ -14,7 +14,7 @@ quit driver: Error [ERR_SOCKET_CONNECTION_TIMEOUT]: [quit()] Socket connection t
 
 If you encounter this output in the console log when running the job, please check if you need access to the VPN.
 
-### Node.js version
+### Incompatible version
 
 ```bash 
 FATAL: command execution failed
