@@ -4,22 +4,23 @@ import io.jenkins.plugins.kobiton.services.file.FileOperations;
 import io.jenkins.plugins.kobiton.shared.models.Credential;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class HttpServiceTest {
-    private final String url = "https://i.love.kobiton.very/much";
+
+    private static final String URL = "https://i.love.kobiton.very/much";
     private final Credential credential = new Credential("username", "apiKey");
     private HttpService httpService;
     private final HttpClient mockClient = mock(HttpClient.class);
@@ -34,7 +35,7 @@ class HttpServiceTest {
     }
 
     @Test
-    void Builder_NoHttpClientAndFileOperationsGiven_ShouldReturnBuild() {
+    void builder_NoHttpClientAndFileOperationsGiven_ShouldReturnBuild() {
         httpService = new HttpService.Builder().build();
         assertNotNull(httpService);
     }
@@ -44,7 +45,7 @@ class HttpServiceTest {
         when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(responseBody);
 
-        String response = httpService.get(url, credential);
+        String response = httpService.get(URL, credential);
 
         assertEquals(responseBody, response);
     }
@@ -54,7 +55,7 @@ class HttpServiceTest {
         when(mockResponse.statusCode()).thenReturn(404);
         when(mockResponse.body()).thenReturn(responseBody);
 
-        assertThrows(IOException.class, () -> httpService.get(url, credential));
+        assertThrows(IOException.class, () -> httpService.get(URL, credential));
     }
 
     @Test
@@ -62,7 +63,7 @@ class HttpServiceTest {
         when(mockResponse.statusCode()).thenReturn(500);
         when(mockResponse.body()).thenReturn(responseBody);
 
-        assertThrows(IOException.class,  () -> httpService.get(url, credential));
+        assertThrows(IOException.class,  () -> httpService.get(URL, credential));
     }
 
     @Test
@@ -71,7 +72,7 @@ class HttpServiceTest {
         when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(responseBody);
 
-        String response = httpService.post(url, credential, requestBody);
+        String response = httpService.post(URL, credential, requestBody);
 
         assertEquals(responseBody, response);
     }
@@ -81,7 +82,7 @@ class HttpServiceTest {
         when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(responseBody);
 
-        assertThrows(IOException.class, () -> httpService.put(url, invalidFilePath));
+        assertThrows(IOException.class, () -> httpService.put(URL, invalidFilePath));
     }
 
     @Test
@@ -95,7 +96,7 @@ class HttpServiceTest {
         when(mockFileOperations.readFileContent(any(String.class))).thenReturn(fileContent.getBytes());
         httpService = new HttpService.Builder().withHttpClient(mockClient).withFileOperations(mockFileOperations).build();
 
-        String response = httpService.put(url, validFilePath);
+        String response = httpService.put(URL, validFilePath);
 
         assertEquals(responseBody, response);
     }

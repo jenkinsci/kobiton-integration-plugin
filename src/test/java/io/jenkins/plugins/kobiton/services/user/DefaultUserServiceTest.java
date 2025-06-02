@@ -6,29 +6,29 @@ import io.jenkins.plugins.kobiton.shared.models.Credential;
 import io.jenkins.plugins.kobiton.shared.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class DefaultUserServiceTest {
-    private final String BASE_URL = "https://i.love.kobiton.very/much";
+
+    private static final String BASE_URL = "https://i.love.kobiton.very/much";
     private final Credential credential = new Credential("username", "apiKey");
     private final DefaultUserService userService = new DefaultUserService();
     private final HttpClient mockClient = mock(HttpClient.class);
     private final HttpResponse<String> mockResponse = mock(HttpResponse.class);
-
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException, IOException, InterruptedException {
@@ -48,11 +48,11 @@ class DefaultUserServiceTest {
 
     @Test
     void getUrl_EndPointGiven_ShouldReturnCorrectUrl() {
-        String ENDPOINT = "/users";
+        String endpoint = "/users";
 
-        String result = userService.getUrl(ENDPOINT);
+        String result = userService.getUrl(endpoint);
 
-        assertEquals(BASE_URL + ENDPOINT, result);
+        assertEquals(BASE_URL + endpoint, result);
     }
 
     @Test

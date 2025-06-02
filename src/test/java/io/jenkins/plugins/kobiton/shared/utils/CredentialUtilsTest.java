@@ -7,11 +7,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CredentialUtilsTest {
+
     @Test
-    void CredentialUtils_Constructor_IsPrivate() throws NoSuchMethodException {
+    void credentialUtils_Constructor_IsPrivate() throws NoSuchMethodException {
         Constructor<CredentialUtils> constructor = CredentialUtils.class.getDeclaredConstructor();
         boolean expected = true;
 
