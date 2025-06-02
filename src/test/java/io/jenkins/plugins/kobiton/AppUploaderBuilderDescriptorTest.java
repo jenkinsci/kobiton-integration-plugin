@@ -2,24 +2,31 @@ package io.jenkins.plugins.kobiton;
 
 import hudson.model.FreeStyleProject;
 import jenkins.model.Jenkins;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
 import java.io.File;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AppUploaderBuilderDescriptorTest {
-    @Rule
-    public JenkinsRule jenkinsRule = new JenkinsRule();
+@WithJenkins
+class AppUploaderBuilderDescriptorTest {
+
+    private JenkinsRule jenkinsRule;
+
+    @BeforeEach
+    void setUp(JenkinsRule rule) {
+        jenkinsRule = rule;
+    }
 
     @Test
-    public void BuilderDescriptor_ShouldReturnCorrectly() {
+    void builderDescriptor_ShouldReturnCorrectly() {
         String directory = new File("./").getAbsolutePath();
         String repoDir = directory.substring(0, directory.length() - 1);
-        String textFilePath = repoDir + "src/test/java/io/jenkins/plugins/kobiton/services/file/test.txt";
-        String apkFilePath = repoDir + "src/test/java/io/jenkins/plugins/kobiton/services/file/test.apk";
+        String textFilePath = repoDir + "src/test/resources/io/jenkins/plugins/kobiton/services/file/test.txt";
+        String apkFilePath = repoDir + "src/test/resources/io/jenkins/plugins/kobiton/services/file/test.apk";
         Jenkins jenkins = jenkinsRule.getInstance();
         AppUploaderBuilderDescriptor descriptor = jenkins.getDescriptorByType(AppUploaderBuilderDescriptor.class);
 

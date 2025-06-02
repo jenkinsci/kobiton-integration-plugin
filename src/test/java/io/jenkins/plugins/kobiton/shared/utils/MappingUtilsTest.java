@@ -12,8 +12,9 @@ import java.lang.reflect.Modifier;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MappingUtilsTest {
+
     @Test
-    void MappingUtils_Constructor_ShouldBePrivate() throws NoSuchMethodException {
+    void mappingUtils_Constructor_ShouldBePrivate() throws NoSuchMethodException {
         Constructor<MappingUtils> constructor = MappingUtils.class.getDeclaredConstructor();
         boolean expected = true;
 

@@ -3,34 +3,36 @@ package io.jenkins.plugins.kobiton.shared.models;
 import hudson.util.Secret;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CredentialTest {
-    private final String username = "username";
-    private final String apiKey = "apiKey";
+
+    private static final String USERNAME = "username";
+    private static final String API_KEY = "apiKey";
+
     @Test
-    void ConstructorAndGettersWithSecretApiKey_ShouldReturnCorrectly() {
+    void constructorAndGettersWithSecretApiKey_ShouldReturnCorrectly() {
         Secret apiKey = Secret.fromString("mySecretApiKey");
 
-        Credential credential = new Credential(username, apiKey);
+        Credential credential = new Credential(USERNAME, apiKey);
 
-        assertEquals(username, credential.getUsername());
+        assertEquals(USERNAME, credential.getUsername());
         assertEquals(apiKey.getPlainText(), credential.getApiKey());
     }
 
     @Test
-    void ConstructorAndGettersWithStringApiKey_ShouldReturnCorrectly() {
-        Credential credential = new Credential(username, apiKey);
+    void constructorAndGettersWithStringApiKey_ShouldReturnCorrectly() {
+        Credential credential = new Credential(USERNAME, API_KEY);
 
-        assertEquals(username, credential.getUsername());
-        assertEquals(apiKey, credential.getApiKey());
+        assertEquals(USERNAME, credential.getUsername());
+        assertEquals(API_KEY, credential.getApiKey());
     }
 
     @Test
     void getCredentials_ShouldReturnCorrectly() {
-        String expectedCredentials = username + ":" + apiKey;
+        String expectedCredentials = USERNAME + ":" + API_KEY;
 
-        Credential credential = new Credential(username, apiKey);
+        Credential credential = new Credential(USERNAME, API_KEY);
 
         assertEquals(expectedCredentials, credential.getCredentials());
     }

@@ -8,14 +8,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.net.http.HttpRequest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class HttpUtilsTest {
-    private final String url = "https://i.love.kobiton.very/much";
+
+    private static final String URL = "https://i.love.kobiton.very/much";
     private final Credential credential = new Credential("username", "apiKey");
 
     @Test
-    void HttpUtils_Constructor_ShouldBePrivate() throws NoSuchMethodException {
+    void httpUtils_Constructor_ShouldBePrivate() throws NoSuchMethodException {
         Constructor<HttpUtils> constructor = HttpUtils.class.getDeclaredConstructor();
         boolean expected = true;
 
@@ -28,7 +30,7 @@ class HttpUtilsTest {
 
     @Test
     void createAuthHeader_ValidCredentialsGiven_ShouldReturnHttpRequestBuilderWithAuthorizationHeader() {
-        HttpRequest.Builder builder = HttpUtils.createAuthHeader(url, credential);
+        HttpRequest.Builder builder = HttpUtils.createAuthHeader(URL, credential);
         HttpRequest request = builder.build();
 
         assertEquals("Basic " + CredentialUtils.encodeCredentials(credential), request.headers().firstValue("Authorization").orElse(null));
@@ -36,7 +38,7 @@ class HttpUtilsTest {
 
     @Test
     void createGetRequest_ValidCredentialsAndUrlGiven_ShouldReturnHttpGetRequestWithAuthorizationHeader() {
-        HttpRequest request = HttpUtils.createGetRequest(url, credential);
+        HttpRequest request = HttpUtils.createGetRequest(URL, credential);
 
         assertEquals("GET", request.method());
         assertEquals("Basic " + CredentialUtils.encodeCredentials(credential), request.headers().firstValue("Authorization").orElse(null));
@@ -46,7 +48,7 @@ class HttpUtilsTest {
     void createPostRequest_ValidCredentialsUrlAndBodyGiven_ShouldReturnHttpPostRequestWithAuthorizationAndContentTypeHeaders() {
         String body = "request body";
 
-        HttpRequest request = HttpUtils.createPostRequest(url, credential, body);
+        HttpRequest request = HttpUtils.createPostRequest(URL, credential, body);
         String expectedBody = request.bodyPublisher().map(StringSubscriber::wrapBodyPublisher).orElse(null);
 
         assertEquals("POST", request.method());
