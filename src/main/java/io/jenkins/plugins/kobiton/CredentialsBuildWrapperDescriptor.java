@@ -13,7 +13,7 @@ import io.jenkins.plugins.kobiton.shared.models.Credential;
 import io.jenkins.plugins.kobiton.shared.utils.StringUtils;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
 @Symbol("credentialsBuildWrapper")
@@ -38,7 +38,7 @@ public class CredentialsBuildWrapperDescriptor extends BuildWrapperDescriptor {
     }
 
     @Override
-    public CredentialsBuildWrapper newInstance(StaplerRequest req, JSONObject formData) throws FormException {
+    public CredentialsBuildWrapper newInstance(StaplerRequest2 req, JSONObject formData) throws FormException {
         return new CredentialsBuildWrapper(
                 formData.getString("username"),
                 Secret.fromString(formData.getString("apiKey")),
@@ -70,8 +70,8 @@ public class CredentialsBuildWrapperDescriptor extends BuildWrapperDescriptor {
         ApiEndpoint.getInstance().setBaseUrl(standaloneUrl);
 
         try {
-            Boolean isUserDisabled = userService.isUserDisabled(new Credential(username, apiKey));
-            if (Boolean.TRUE.equals(isUserDisabled)) {
+            boolean isUserDisabled = userService.isUserDisabled(new Credential(username, apiKey));
+            if (isUserDisabled) {
                 return FormValidation.error(Messages.BuildEnvironment_auth_fail());
             }
             return FormValidation.ok(Messages.BuildEnvironment_auth_success());

@@ -52,9 +52,7 @@ class ConfigManagerTest {
 
     @Test
     void Builder_ConfigFileGiven_ShouldBuildSuccessfully() {
-        assertDoesNotThrow(() -> {
-            configManager = new ConfigManager.Builder().filePath("config.properties").build();
-        });
+        assertDoesNotThrow(() -> configManager = new ConfigManager.Builder().filePath("config.properties").build());
         String defaultValue = configManager.getProperty("nonexistent", "default");
 
         assertEquals("default", defaultValue);
@@ -62,8 +60,6 @@ class ConfigManagerTest {
 
     @Test
     void Builder_WrongConfigFileGiven_ShouldNotThrowError() {
-        assertDoesNotThrow(() -> {
-            configManager = new ConfigManager.Builder().filePath("fake").build();
-        });
+        assertDoesNotThrow(() -> configManager = new ConfigManager.Builder().filePath("fake").build());
     }
 }

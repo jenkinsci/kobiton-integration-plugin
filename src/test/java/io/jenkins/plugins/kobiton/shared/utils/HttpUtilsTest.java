@@ -9,7 +9,6 @@ import java.lang.reflect.Modifier;
 import java.net.http.HttpRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class HttpUtilsTest {
     private final String url = "https://i.love.kobiton.very/much";

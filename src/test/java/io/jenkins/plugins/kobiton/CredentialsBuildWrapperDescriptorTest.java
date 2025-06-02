@@ -9,7 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jvnet.hudson.test.JenkinsRule;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class CredentialsBuildWrapperDescriptorTest {
 
     @Test
     public void newInstance_FormDataGiven_ShouldReturnBuildWrapper() throws Descriptor.FormException {
-        StaplerRequest request = mock(StaplerRequest.class);
+        StaplerRequest2 request = mock(StaplerRequest2.class);
         JSONObject formData = mock(JSONObject.class);
         when(formData.getString("username")).thenReturn(username);
         when(formData.getString("apiKey")).thenReturn(apiKey);
