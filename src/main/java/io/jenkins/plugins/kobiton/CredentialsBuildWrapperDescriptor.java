@@ -70,8 +70,8 @@ public class CredentialsBuildWrapperDescriptor extends BuildWrapperDescriptor {
         ApiEndpoint.getInstance().setBaseUrl(standaloneUrl);
 
         try {
-            Boolean isUserDisabled = userService.isUserDisabled(new Credential(username, apiKey));
-            if (Boolean.TRUE.equals(isUserDisabled)) {
+            boolean isUserDisabled = userService.isUserDisabled(new Credential(username, apiKey));
+            if (isUserDisabled) {
                 return FormValidation.error(Messages.BuildEnvironment_auth_fail());
             }
             return FormValidation.ok(Messages.BuildEnvironment_auth_success());

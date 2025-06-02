@@ -1,6 +1,5 @@
 package io.jenkins.plugins.kobiton.shared.models;
 
-import io.jenkins.plugins.kobiton.shared.constants.Constants;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

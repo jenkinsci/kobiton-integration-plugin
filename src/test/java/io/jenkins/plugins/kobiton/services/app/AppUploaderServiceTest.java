@@ -85,9 +85,7 @@ class AppUploaderServiceTest {
         privateField.setAccessible(true);
         privateField.set(service, httpService);
 
-        assertDoesNotThrow(() -> {
-            service.uploadFileToS3(BASE_URL, "path/to/app");
-        });
+        assertDoesNotThrow(() -> service.uploadFileToS3(BASE_URL, "path/to/app"));
     }
 
     @Test
