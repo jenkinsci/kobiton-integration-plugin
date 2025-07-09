@@ -6,51 +6,60 @@ import hudson.model.Result;
 import io.jenkins.plugins.kobiton.services.app.AppUploaderService;
 import io.jenkins.plugins.kobiton.shared.models.Application;
 import io.jenkins.plugins.kobiton.shared.models.PreSignedURL;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.jvnet.hudson.test.JenkinsRule;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AppUploaderBuilderTest {
-    @Rule
-    public JenkinsRule jenkins = new JenkinsRule();
-    final String uploadPath = "path/to/app";
-    final Integer appId = 123;
-    final Integer versionId = 456;
-    final Boolean isUpdateVersion = true;
+@ExtendWith(MockitoExtension.class)
+@WithJenkins
+class AppUploaderBuilderTest {
 
-    @Test
-    public void Constructor_ShouldWorkCorrectly() {
-        AppUploaderBuilder builder1 = new AppUploaderBuilder(uploadPath, isUpdateVersion, appId);
-        AppUploaderBuilder builder2 = new AppUploaderBuilder(uploadPath, !isUpdateVersion, appId);
+    private static final String UPLOAD_PATH = "path/to/app";
+    private static final Integer APP_ID = 123;
+    private static final Integer VERSION_ID = 456;
+    private static final Boolean IS_UPDATE_VERSION = true;
 
-        assertEquals(builder1.getUploadPath(), uploadPath);
-        assertEquals(builder1.getAppId(), appId);
-        assertEquals(builder1.getAppId(), appId);
-        assertNotEquals(builder2.getIsUpdateVersion(), isUpdateVersion);
+    private JenkinsRule jenkins;
+
+    @BeforeEach
+    void setUp(JenkinsRule rule) {
+        jenkins = rule;
     }
 
     @Test
-    public void perform_SuccessBuildGiven_ShouldLogCorrectly() throws Exception {
+    void Constructor_ShouldWorkCorrectly() {
+        AppUploaderBuilder builder1 = new AppUploaderBuilder(UPLOAD_PATH, IS_UPDATE_VERSION, APP_ID);
+        AppUploaderBuilder builder2 = new AppUploaderBuilder(UPLOAD_PATH, !IS_UPDATE_VERSION, APP_ID);
+
+        assertEquals(UPLOAD_PATH, builder1.getUploadPath());
+        assertEquals(APP_ID, builder1.getAppId());
+        assertEquals(APP_ID, builder1.getAppId());
+        assertNotEquals(IS_UPDATE_VERSION, builder2.getIsUpdateVersion());
+    }
+
+    @Test
+    void perform_SuccessBuildGiven_ShouldLogCorrectly() throws Exception {
         PreSignedURL mockPreSignUrl = new PreSignedURL("appPath", "url");
-        Application mockApplication = new Application(appId, versionId);
+        Application mockApplication = new Application(APP_ID, VERSION_ID);
 
         AppUploaderService appServiceMock = mock(AppUploaderService.class);
         when(appServiceMock.generatePreSignedUploadURL(any(), any(), any())).thenReturn(mockPreSignUrl);
         when(appServiceMock.uploadFileToS3(any(), any())).thenReturn(true);
         when(appServiceMock.createApplication(any(), any(), any())).thenReturn(mockApplication);
 
-        AppUploaderBuilder builder = new AppUploaderBuilder(uploadPath, isUpdateVersion, appId);
+        AppUploaderBuilder builder = new AppUploaderBuilder(UPLOAD_PATH, IS_UPDATE_VERSION, APP_ID);
         Field appServiceField = AppUploaderBuilder.class.getDeclaredField("appService");
         appServiceField.setAccessible(true);
         appServiceField.set(builder, appServiceMock);
@@ -63,11 +72,11 @@ public class AppUploaderBuilderTest {
     }
 
     @Test
-    public void perform_FailedBuildGiven_ShouldLogError() throws Exception {
+    void perform_FailedBuildGiven_ShouldLogError() throws Exception {
         AppUploaderService appServiceMock = mock(AppUploaderService.class);
         when(appServiceMock.generatePreSignedUploadURL(any(), any(), any())).thenThrow(IOException.class);
 
-        AppUploaderBuilder builder = new AppUploaderBuilder(uploadPath, isUpdateVersion, appId);
+        AppUploaderBuilder builder = new AppUploaderBuilder(UPLOAD_PATH, IS_UPDATE_VERSION, APP_ID);
         Field appServiceField = AppUploaderBuilder.class.getDeclaredField("appService");
         appServiceField.setAccessible(true);
         appServiceField.set(builder, appServiceMock);
@@ -80,8 +89,8 @@ public class AppUploaderBuilderTest {
     }
 
     @Test
-    public void perform_NullAppUploaderGiven_ShouldInitService() throws Exception {
-        AppUploaderBuilder builder = new AppUploaderBuilder(uploadPath, isUpdateVersion, appId);
+    void perform_NullAppUploaderGiven_ShouldInitService() throws Exception {
+        AppUploaderBuilder builder = new AppUploaderBuilder(UPLOAD_PATH, IS_UPDATE_VERSION, APP_ID);
         Field appServiceField = AppUploaderBuilder.class.getDeclaredField("appService");
         appServiceField.setAccessible(true);
         appServiceField.set(builder, null);
