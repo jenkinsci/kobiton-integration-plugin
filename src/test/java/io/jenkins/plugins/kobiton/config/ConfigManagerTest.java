@@ -4,26 +4,23 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConfigManagerTest {
+
     private static final String PROPERTIES_CONTENT = "key1=value1\nkey2=value2\nmyArray=value1,value2,value3";
     private ConfigManager configManager;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() throws Exception {
         Properties properties = new Properties();
         ByteArrayInputStream inputStream = new ByteArrayInputStream(PROPERTIES_CONTENT.getBytes(StandardCharsets.UTF_8));
-        try {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        properties.load(inputStream);
         configManager = new ConfigManager(properties);
     }
 
@@ -51,7 +48,7 @@ class ConfigManagerTest {
     }
 
     @Test
-    void Builder_ConfigFileGiven_ShouldBuildSuccessfully() {
+    void builder_ConfigFileGiven_ShouldBuildSuccessfully() {
         assertDoesNotThrow(() -> configManager = new ConfigManager.Builder().filePath("config.properties").build());
         String defaultValue = configManager.getProperty("nonexistent", "default");
 
@@ -59,7 +56,7 @@ class ConfigManagerTest {
     }
 
     @Test
-    void Builder_WrongConfigFileGiven_ShouldNotThrowError() {
+    void builder_WrongConfigFileGiven_ShouldNotThrowError() {
         assertDoesNotThrow(() -> configManager = new ConfigManager.Builder().filePath("fake").build());
     }
 }
