@@ -7,11 +7,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PropertyLoaderTest {
+
     @Test
-    void PropertyLoader_Constructor_ShouldBePrivate() throws NoSuchMethodException {
+    void propertyLoader_Constructor_ShouldBePrivate() throws NoSuchMethodException {
         Constructor<PropertyLoader> constructor = PropertyLoader.class.getDeclaredConstructor();
         boolean expected = true;
 

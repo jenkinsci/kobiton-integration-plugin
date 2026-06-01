@@ -8,20 +8,22 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PluginLoggerTest {
+
     private ByteArrayOutputStream outContent;
     private PrintStream printStream;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         outContent = new ByteArrayOutputStream();
         printStream = new PrintStream(outContent);
     }
 
     @Test
-    void PluginLogger_Constructor_IsPrivate() throws NoSuchMethodException {
+    void pluginLogger_Constructor_IsPrivate() throws NoSuchMethodException {
         Constructor<PluginLogger> constructor = PluginLogger.class.getDeclaredConstructor();
         boolean expected = true;
 

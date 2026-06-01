@@ -2,18 +2,19 @@ package io.jenkins.plugins.kobiton;
 
 import hudson.EnvVars;
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class VariableInjectorActionTest {
+class VariableInjectorActionTest {
+
     @Test
-    public void Getters_ShouldWorkCorrectly() {
+    void getters_ShouldWorkCorrectly() {
         Map<String, String> envVars = new HashMap<>();
 
         VariableInjectorAction action = new VariableInjectorAction(envVars);
@@ -25,7 +26,7 @@ public class VariableInjectorActionTest {
 
 
     @Test
-    public void buildEnvironment_EnvVarsGiven_ShouldAddVarsToEnv() {
+    void buildEnvironment_EnvVarsGiven_ShouldAddVarsToEnv() {
         Run<?, ?> run = mock(Run.class);
         EnvVars env = mock(EnvVars.class);
         Map<String, String> envVars = new HashMap<>();

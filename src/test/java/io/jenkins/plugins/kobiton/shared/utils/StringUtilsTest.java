@@ -6,15 +6,17 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StringUtilsTest {
-    @Test
-    void StringUtils_Constructor_ShouldBePrivate() throws NoSuchMethodException {
-        Constructor<StringUtils> constructor = StringUtils.class.getDeclaredConstructor();
-        boolean expected = true;
 
-        assertEquals(expected, Modifier.isPrivate(constructor.getModifiers()));
+    @Test
+    void stringUtils_Constructor_ShouldBePrivate() throws NoSuchMethodException {
+        Constructor<StringUtils> constructor = StringUtils.class.getDeclaredConstructor();
+
+        assertTrue(Modifier.isPrivate(constructor.getModifiers()));
 
         constructor.setAccessible(true);
 
@@ -23,29 +25,21 @@ class StringUtilsTest {
 
     @Test
     void isNullOrEmpty_NullStringGiven_ShouldReturnsTrue() {
-        boolean expected = true;
-
-        assertEquals(expected, StringUtils.isNullOrEmpty(null));
+        assertTrue(StringUtils.isNullOrEmpty(null));
     }
 
     @Test
     void isNullOrEmpty_EmptyStringGive_ShouldReturnsTrue() {
-        boolean expected = true;
-
-        assertEquals(expected, StringUtils.isNullOrEmpty(""));
+        assertTrue(StringUtils.isNullOrEmpty(""));
     }
 
     @Test
     void isNullOrEmpty_StringWithSpaceGiven_ShouldReturnsFalse() {
-        boolean expected = false;
-
-        assertEquals(expected, StringUtils.isNullOrEmpty(" "));
+        assertFalse(StringUtils.isNullOrEmpty(" "));
     }
 
     @Test
     void isNullOrEmpty_NonEmptyStringGiven_ShouldReturnsFalse() {
-        boolean expected = false;
-
-        assertEquals(expected, StringUtils.isNullOrEmpty("i_love_kobiton"));
+        assertFalse(StringUtils.isNullOrEmpty("i_love_kobiton"));
     }
 }

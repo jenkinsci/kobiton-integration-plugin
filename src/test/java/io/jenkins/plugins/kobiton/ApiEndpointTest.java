@@ -4,13 +4,14 @@ import io.jenkins.plugins.kobiton.shared.constants.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApiEndpointTest {
+
     private ApiEndpoint apiEndpoint;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         apiEndpoint = ApiEndpoint.getInstance();
     }
 

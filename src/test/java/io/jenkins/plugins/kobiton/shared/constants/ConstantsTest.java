@@ -11,8 +11,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConstantsTest {
+
     @Test
-    void Constants_Constructor_IsPrivate() throws NoSuchMethodException {
+    void constants_Constructor_IsPrivate() throws NoSuchMethodException {
         Constructor<Constants> constructor = Constants.class.getDeclaredConstructor();
         boolean expected = true;
 
